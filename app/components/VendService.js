@@ -1,26 +1,16 @@
 //PRIVATE
 import VendingMachine from "../models/VendMachine.js";
+import Fredos from "../models/Fritos.js";
+import Tab from "../models/Tab.js";
+import MtDew from "../models/MtDew.js";
 
 //instatiates an instance of the vending machine class
-let vm = new VendingMachine(100, [{
-  name: 'Fritos',
-  price: 1,
-  quantity: 3
-}, {
-  name: 'Tab',
-  price: .75,
-  quantity: 10
-}, {
-  name: 'Mt. Dew',
-  price: 1,
-  quantity: 1
-}])
+let vm = new VendingMachine(100, [new Fredos(), new Tab(), new MtDew()])
 
 //PUBLIC
 export default class VendService {
   //increases currentTransaction and returns new total
   addQuarter() {
-    console.log(2)
     vm.currentTransaction += .25
     return vm.currentTransaction
   }
@@ -45,5 +35,12 @@ export default class VendService {
   getProducts() {
     //breaks refrence in memory to protect code
     return JSON.parse(JSON.stringify(vm.products))
+  }
+  returnChange() {
+    vm.currentTransaction = 0
+    return vm.currentTransaction
+  }
+  getChange() {
+    return vm.currentTransaction
   }
 }
